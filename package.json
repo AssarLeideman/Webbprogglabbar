@@ -1,0 +1,19 @@
+{
+  "name": "labb_1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "start.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AssarLeideman/Webbprogglabbar.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AssarLeideman/Webbprogglabbar/issues"
+  },
+  "homepage": "https://github.com/AssarLeideman/Webbprogglabbar#readme"
+}
