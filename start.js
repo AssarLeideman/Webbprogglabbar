@@ -1,0 +1,1 @@
+console.log("Vi kan köpa hela Halmstad om vi vill");
