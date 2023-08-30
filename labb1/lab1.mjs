@@ -36,11 +36,19 @@ console.log(makeOptions(inventory, 'foundation'));
 
 console.log('\n--- Assignment 2 ---------------------------------------')
 class Salad {
+  ingredients = new Array();
   constructor() { }
-  add(name, properties) { }
-  remove(name) { }
+  add(name, properties) {
+    this.ingredients.push({name,properties});
+     return this
+    }
+
+  remove(name) {
+    this.ingredients = this.ingredients.filter(ingredient => ingredient.name !== name);
+    return this;
+  }
 }
-/*
+
 let myCaesarSalad = new Salad()
   .add('Sallad', inventory['Sallad'])
   .add('Kycklingfilé', inventory['Kycklingfilé'])
@@ -52,8 +60,10 @@ let myCaesarSalad = new Salad()
 console.log(JSON.stringify(myCaesarSalad) + '\n');
 myCaesarSalad.remove('Gurka');
 console.log(JSON.stringify(myCaesarSalad) + '\n');
-*/
+
 console.log('\n--- Assignment 3 ---------------------------------------')
+
+Salad.prototype
 //console.log('En ceasarsallad kostar ' + myCaesarSalad.getPrice() + 'kr');
 // En ceasarsallad kostar 45kr
 //console.log('En ceasarsallad har ' + myCaesarSalad.count('lactose') + ' ingredienser med laktos');
