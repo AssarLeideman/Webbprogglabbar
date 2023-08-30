@@ -64,12 +64,18 @@ console.log(JSON.stringify(myCaesarSalad) + '\n');
 
 console.log('\n--- Assignment 3 ---------------------------------------')
 
-Salad.prototype
-//console.log('En ceasarsallad kostar ' + myCaesarSalad.getPrice() + 'kr');
+Salad.prototype.getPrice = function() {
+  return Object.values(this.ingredienser).reduce((totalPrice, ingredient) => totalPrice + ingredient.price,0);
+}
+console.log('En ceasarsallad kostar ' + myCaesarSalad.getPrice() + 'kr');
+
+Salad.prototype.count = function(property) {
+  return Object.values(this.ingredienser).filter(x => x[property]).length;
+}
 // En ceasarsallad kostar 45kr
-//console.log('En ceasarsallad har ' + myCaesarSalad.count('lactose') + ' ingredienser med laktos');
+console.log('En ceasarsallad har ' + myCaesarSalad.count('lactose') + ' ingredienser med laktos');
 // En ceasarsallad har 2 ingredienser med laktos
-//console.log('En ceasarsallad har ' + myCaesarSalad.count('extra') + ' tillbehör');
+console.log('En ceasarsallad har ' + myCaesarSalad.count('extra') + ' tillbehör');
 // En ceasarsallad har 3 tillbehör
 
 /*
