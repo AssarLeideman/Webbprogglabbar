@@ -1,7 +1,6 @@
 'use strict';
 /**
  * Reflection question 1
- * your answer goes here
  * Because if the property is lacking it will default to false
  */
 
