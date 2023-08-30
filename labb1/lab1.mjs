@@ -27,8 +27,7 @@ for (const name in inventory) {
 console.log('\n--- Assignment 1 ---------------------------------------')
 
 function makeOptions(inv, prop) {
-  Object.keys(inv).filter(name => inv[name][prop]).forEach(a => console.log(a));
-  return 'todo';
+  return Object.keys(inv).filter(name => inv[name][prop]).map(item => '<option value="' + item + '" key="' + item + '"> ' + item + ', ' + inv[item].price + ' kr</option> \n').reduce((a,b)=> a + b, '');
 }
 
 console.log(makeOptions(inventory, 'foundation'));
