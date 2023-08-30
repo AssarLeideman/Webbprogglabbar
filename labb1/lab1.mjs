@@ -36,8 +36,12 @@ console.log(makeOptions(inventory, 'foundation'));
 
 console.log('\n--- Assignment 2 ---------------------------------------')
 class Salad {
-  constructor() {
-    this.ingredienser = {};
+  constructor(otherSalad) {
+    if(otherSalad instanceof Salad) {
+      return otherSalad;
+    } else {
+      this.ingredienser = {};
+    }
    }
   add(name, properties) { 
     this.ingredienser[name] = properties;
@@ -78,7 +82,7 @@ console.log('En ceasarsallad har ' + myCaesarSalad.count('lactose') + ' ingredie
 console.log('En ceasarsallad har ' + myCaesarSalad.count('extra') + ' tillbehör');
 // En ceasarsallad har 3 tillbehör
 
-/*
+//GÖR REFLECTION QUESTION 3 FÖR I HELVETE!!!!!
 console.log('\n--- reflection question 3 ---------------------------------------')
 console.log('typeof Salad: ' + typeof Salad);
 console.log('typeof Salad.prototype: ' + typeof Salad.prototype);
@@ -88,25 +92,25 @@ console.log('typeof myCaesarSalad.prototype: ' + typeof myCaesarSalad.prototype)
 console.log('check 1: ' + (Salad.prototype === Object.getPrototypeOf(Salad)));
 console.log('check 2: ' + (Salad.prototype === Object.getPrototypeOf(myCaesarSalad)));
 console.log('check 3: ' + (Object.prototype === Object.getPrototypeOf(Salad.prototype)));
-*/
+
 console.log('\n--- Assignment 4 ---------------------------------------')
-/*
+
 const singleText = JSON.stringify(myCaesarSalad);
 const arrayText = JSON.stringify([myCaesarSalad, myCaesarSalad]);
 
 const objectCopy = new Salad(myCaesarSalad);
-const singleCopy = Salad.parse(singleText);
-const arrayCopy = Salad.parse(arrayText);
+//const singleCopy = Salad.parse(singleText);
+//const arrayCopy = Salad.parse(arrayText);
 
 console.log('original myCaesarSalad\n' + JSON.stringify(myCaesarSalad));
 console.log('new(myCaesarSalad)\n' + JSON.stringify(objectCopy));
-console.log('Salad.parse(singleText)\n' + JSON.stringify(singleCopy));
-console.log('Salad.parse(arrayText)\n' + JSON.stringify(arrayCopy));
+//console.log('Salad.parse(singleText)\n' + JSON.stringify(singleCopy));
+//console.log('Salad.parse(arrayText)\n' + JSON.stringify(arrayCopy));
 
-singleCopy.add('Gurka', inventory['Gurka']);
-console.log('originalet kostar ' + myCaesarSalad.getPrice() + ' kr');
-console.log('kopian med gurka kostar ' + singleCopy.getPrice() + ' kr');
-*/
+//singleCopy.add('Gurka', inventory['Gurka']);
+//console.log('originalet kostar ' + myCaesarSalad.getPrice() + ' kr');
+//console.log('kopian med gurka kostar ' + singleCopy.getPrice() + ' kr');
+
 console.log('\n--- Assignment 5 ---------------------------------------')
 /*
 let myGourmetSalad = new GourmetSalad()
