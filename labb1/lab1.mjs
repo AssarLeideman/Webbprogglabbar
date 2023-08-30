@@ -20,12 +20,15 @@ for (const name in inventory) {
 }
 /**
  * Reflection question 2
+ * .forEach does not include properties of the property chain. the for loop iterates over everything, including the property chain.
+ * If an
  */
 
 console.log('\n--- Assignment 1 ---------------------------------------')
 
 function makeOptions(inv, prop) {
-  return 'TODO';
+  Object.keys(inv).filter(name => inv[name][prop]).forEach(a => console.log(a));
+  return 'todo';
 }
 
 console.log(makeOptions(inventory, 'foundation'));
