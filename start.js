@@ -8,3 +8,4 @@ x=2 + 'hej' + true;
 console.log(x);
 console.log("sug min röv");
 console.log("svinigt");
+console.log("fitta");
