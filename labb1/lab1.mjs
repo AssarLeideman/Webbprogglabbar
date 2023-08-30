@@ -36,19 +36,11 @@ console.log(makeOptions(inventory, 'foundation'));
 
 console.log('\n--- Assignment 2 ---------------------------------------')
 class Salad {
-  ingredients = new Array();
   constructor() { }
-  add(name, properties) {
-    this.ingredients.push({name,properties});
-     return this
-    }
-
-  remove(name) {
-    this.ingredients = this.ingredients.filter(ingredient => ingredient.name !== name);
-    return this;
-  }
+  add(name, properties) { }
+  remove(name) { }
 }
-
+/*
 let myCaesarSalad = new Salad()
   .add('Sallad', inventory['Sallad'])
   .add('Kycklingfilé', inventory['Kycklingfilé'])
@@ -60,7 +52,7 @@ let myCaesarSalad = new Salad()
 console.log(JSON.stringify(myCaesarSalad) + '\n');
 myCaesarSalad.remove('Gurka');
 console.log(JSON.stringify(myCaesarSalad) + '\n');
-
+*/
 console.log('\n--- Assignment 3 ---------------------------------------')
 
 Salad.prototype
