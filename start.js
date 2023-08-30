@@ -6,3 +6,4 @@ console.log(b);
 console.log(b+'hej');
 x=2 + 'hej' + true;
 console.log(x);
+console.log("sug min röv");
