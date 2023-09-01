@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/AssarLeideman/Webbprogglabbar/issues"
   },
-  "homepage": "https://github.com/AssarLeideman/Webbprogglabbar#readme"
+  "homepage": "https://github.com/AssarLeideman/Webbprogglabbar#readme",
+  "dependencies": {
+    "uuid": "^9.0.0"
+  }
 }

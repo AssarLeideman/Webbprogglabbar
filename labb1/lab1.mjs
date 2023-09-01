@@ -5,6 +5,9 @@
  */
 
 import inventory from './inventory.mjs';
+import { v4 as uuidv4 } from 'uuid';
+
+
 console.log('\n=== beginning of printout ================================')
 console.log('inventory:', inventory);
 
@@ -37,7 +40,9 @@ console.log(makeOptions(inventory, 'foundation'));
 console.log('\n--- Assignment 2 ---------------------------------------')
 class Salad {
   static instanceCounter = 0;
+  
   constructor(otherSalad) {
+    const uuid = uuidv4();  // use this in the constructor
     if(otherSalad instanceof Salad) {
       otherSalad.id = 'salad_' + Salad.instanceCounter++;
       return otherSalad;
