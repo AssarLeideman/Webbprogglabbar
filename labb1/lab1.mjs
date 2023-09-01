@@ -137,7 +137,21 @@ console.log('originalet kostar ' + myCaesarSalad.getPrice() + ' kr');
 console.log('kopian med gurka kostar ' + singleCopy.getPrice() + ' kr');
 
 console.log('\n--- Assignment 5 ---------------------------------------')
-/*
+
+class GourmetSalad extends Salad{
+  constructor(otherSallad) {
+    super(otherSallad);
+  }
+
+  add(name, properties,size=1) { 
+    const propertiesWithSize = { ...properties,size}
+    super.add(name,propertiesWithSize);
+    return this;
+}
+
+}
+
+
 let myGourmetSalad = new GourmetSalad()
   .add('Sallad', inventory['Sallad'], 0.5)
   .add('Kycklingfilé', inventory['Kycklingfilé'], 2)
@@ -148,7 +162,7 @@ let myGourmetSalad = new GourmetSalad()
 console.log('Min gourmetsallad med lite bacon kostar ' + myGourmetSalad.getPrice() + ' kr');
 myGourmetSalad.add('Bacon', inventory['Bacon'], 1)
 console.log('Med extra bacon kostar den ' + myGourmetSalad.getPrice() + ' kr');
-*/
+
 console.log('\n--- Assignment 6 ---------------------------------------')
 /*
 console.log('Min gourmetsallad har id: ' + myGourmetSalad.id);
