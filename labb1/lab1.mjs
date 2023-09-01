@@ -95,21 +95,46 @@ console.log('check 3: ' + (Object.prototype === Object.getPrototypeOf(Salad.prot
 
 console.log('\n--- Assignment 4 ---------------------------------------')
 
+Salad.parse = function(json){
+  const newSallads = JSON.parse(json);
+
+  let emptySallad = new Salad();
+
+  if (Array.isArray(newSallads)){
+    let emptySallads = [];
+    for(const sallad of newSallads){
+      let emptySallad = new Salad();
+      
+      for (let ingredient in sallad.ingredienser){
+        emptySallad.add(ingredient, sallad.ingredienser[ingredient]);
+      }
+      emptySallads.push(emptySallad);
+    }
+    return emptySallads;
+  }
+  else{
+    for (let ingredient in newSallads.ingredienser){
+      emptySallad.add(ingredient, newSallads.ingredienser[ingredient]);
+    }
+  }
+  return emptySallad;
+}
+
 const singleText = JSON.stringify(myCaesarSalad);
 const arrayText = JSON.stringify([myCaesarSalad, myCaesarSalad]);
 
 const objectCopy = new Salad(myCaesarSalad);
-//const singleCopy = Salad.parse(singleText);
-//const arrayCopy = Salad.parse(arrayText);
+const singleCopy = Salad.parse(singleText);
+const arrayCopy = Salad.parse(arrayText);
 
 console.log('original myCaesarSalad\n' + JSON.stringify(myCaesarSalad));
 console.log('new(myCaesarSalad)\n' + JSON.stringify(objectCopy));
-//console.log('Salad.parse(singleText)\n' + JSON.stringify(singleCopy));
-//console.log('Salad.parse(arrayText)\n' + JSON.stringify(arrayCopy));
+console.log('Salad.parse(singleText)\n' + JSON.stringify(singleCopy));
+console.log('Salad.parse(arrayText)\n' + JSON.stringify(arrayCopy));
 
-//singleCopy.add('Gurka', inventory['Gurka']);
-//console.log('originalet kostar ' + myCaesarSalad.getPrice() + ' kr');
-//console.log('kopian med gurka kostar ' + singleCopy.getPrice() + ' kr');
+singleCopy.add('Gurka', inventory['Gurka']);
+console.log('originalet kostar ' + myCaesarSalad.getPrice() + ' kr');
+console.log('kopian med gurka kostar ' + singleCopy.getPrice() + ' kr');
 
 console.log('\n--- Assignment 5 ---------------------------------------')
 /*
