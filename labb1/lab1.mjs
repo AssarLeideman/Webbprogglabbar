@@ -36,10 +36,14 @@ console.log(makeOptions(inventory, 'foundation'));
 
 console.log('\n--- Assignment 2 ---------------------------------------')
 class Salad {
+  static instanceCounter = 0;
   constructor(otherSalad) {
     if(otherSalad instanceof Salad) {
+      otherSalad.id = 'salad_' + Salad.instanceCounter++;
       return otherSalad;
     } else {
+      this.id = 'salad_' + Salad.instanceCounter++;
+      
       this.ingredienser = {};
     }
    }
@@ -139,6 +143,8 @@ console.log('kopian med gurka kostar ' + singleCopy.getPrice() + ' kr');
 console.log('\n--- Assignment 5 ---------------------------------------')
 
 class GourmetSalad extends Salad{
+ 
+
   constructor(otherSallad) {
     super(otherSallad);
   }
@@ -176,10 +182,12 @@ console.log('Med extra bacon kostar den ' + myGourmetSalad.getPrice() + ' kr');
 console.log("checkpoint charlie");
 
 console.log('\n--- Assignment 6 ---------------------------------------')
-/*
+
 console.log('Min gourmetsallad har id: ' + myGourmetSalad.id);
+
+
 console.log('Min gourmetsallad har uuid: ' + myGourmetSalad.uuid);
-*/
+
 
 /**
  * Reflection question 4
