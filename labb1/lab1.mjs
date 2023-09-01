@@ -144,11 +144,21 @@ class GourmetSalad extends Salad{
   }
 
   add(name, properties,size=1) { 
-    const propertiesWithSize = { ...properties,size}
-    super.add(name,propertiesWithSize);
+    if(this.ingredienser[name]?.size){
+      this.ingredienser[name].size += size;
+    }
+    else{
+      const propertiesWithSize = { ...properties,size}
+      super.add(name,propertiesWithSize);
+      
+    }
     return this;
 }
+}
 
+  GourmetSalad.prototype.getPrice = function(){
+    return Object.values(this.ingredienser).reduce((totalPrice, ingredient) => 
+      totalPrice + (ingredient.price ? ingredient.price * ingredient.size : ingredient.size) ,0);
 }
 
 
