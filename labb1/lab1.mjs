@@ -45,8 +45,10 @@ class Salad {
     const uuid = uuidv4();  // use this in the constructor
     if(otherSalad instanceof Salad) {
       otherSalad.id = 'salad_' + Salad.instanceCounter++;
+      otherSalad.uuid = uuid;
       return otherSalad;
     } else {
+      this.uuid = uuid;
       this.id = 'salad_' + Salad.instanceCounter++;
       
       this.ingredienser = {};
