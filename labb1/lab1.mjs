@@ -158,7 +158,7 @@ class GourmetSalad extends Salad{
 
   GourmetSalad.prototype.getPrice = function(){
     return Object.values(this.ingredienser).reduce((totalPrice, ingredient) => 
-      totalPrice + (ingredient.price ? ingredient.price * ingredient.size : ingredient.size) ,0);
+      totalPrice + (ingredient.price ? ingredient.price * ingredient.size : ingredient.size) ,0) ;
 }
 
 
