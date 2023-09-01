@@ -173,6 +173,8 @@ console.log('Min gourmetsallad med lite bacon kostar ' + myGourmetSalad.getPrice
 myGourmetSalad.add('Bacon', inventory['Bacon'], 1)
 console.log('Med extra bacon kostar den ' + myGourmetSalad.getPrice() + ' kr');
 
+console.log("checkpoint charlie");
+
 console.log('\n--- Assignment 6 ---------------------------------------')
 /*
 console.log('Min gourmetsallad har id: ' + myGourmetSalad.id);
