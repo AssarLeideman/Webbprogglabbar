@@ -93,7 +93,12 @@ console.log('En ceasarsallad har ' + myCaesarSalad.count('lactose') + ' ingredie
 console.log('En ceasarsallad har ' + myCaesarSalad.count('extra') + ' tillbehör');
 // En ceasarsallad har 3 tillbehör
 
-//GÖR REFLECTION QUESTION 3 FÖR I HELVETE!!!!!
+/*
+How are classes and inherited properties represented in JavaScript?
+Klasser finns inte, det är en abstraktion av en funktion. Därför är en klass en funktion.
+Salad.prototype är ett objekt. Salad.prototype har ingen egen prototypkedja i nuläget, det går väl att använda ifall man vill? Därför undefined
+Alla instanser av en klass, som myCaesarSalad blir ett objekt. Objektet i sig har ingen prototypkedja, för den tillhör klassen.
+*/
 console.log('\n--- reflection question 3 ---------------------------------------')
 console.log('typeof Salad: ' + typeof Salad);
 console.log('typeof Salad.prototype: ' + typeof Salad.prototype);
@@ -115,7 +120,7 @@ Salad.parse = function(json){
     let emptySallads = [];
     for(const sallad of newSallads){
       let emptySallad = new Salad();
-      
+      emptySallad.uuid=sallad.uuid;
       for (let ingredient in sallad.ingredienser){
         emptySallad.add(ingredient, sallad.ingredienser[ingredient]);
       }
@@ -124,6 +129,7 @@ Salad.parse = function(json){
     return emptySallads;
   }
   else{
+    emptySallad.uuid=newSallads.uuid;
     for (let ingredient in newSallads.ingredienser){
       emptySallad.add(ingredient, newSallads.ingredienser[ingredient]);
     }
@@ -198,10 +204,13 @@ console.log('Min gourmetsallad har uuid: ' + myGourmetSalad.uuid);
 
 /**
  * Reflection question 4
+ * Den sparas i klassens variabel. Se debuggern!
  */
 /**
  * Reflection question 5
+ * Ja det går genom att nestla variabeln i en funktion så den bara är synlig i funktionens scope.
  */
 /**
  * Reflection question 6
+ * Nej, vi tror inte det?
  */
