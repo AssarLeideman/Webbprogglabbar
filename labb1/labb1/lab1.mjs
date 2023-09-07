@@ -39,18 +39,20 @@ console.log(makeOptions(inventory, 'foundation'));
 
 console.log('\n--- Assignment 2 ---------------------------------------')
 class Salad {
-  static instanceCounter = 0;
+  static #instanceCounter = 0;
   
   constructor(otherSalad) {
     const uuid = uuidv4();  // use this in the constructor
+
+    //Ändra ordning
     if(otherSalad instanceof Salad) {
-      otherSalad.id = 'salad_' + Salad.instanceCounter++;
-      otherSalad.uuid = uuid;
-      return otherSalad;
+      this.ingredienser={...otherSalad.ingredienser};
+      this.id = 'salad_' + Salad.#instanceCounter++;
+      this.uuid = uuid;
+      return this;
     } else {
       this.uuid = uuid;
-      this.id = 'salad_' + Salad.instanceCounter++;
-      
+      this.id = 'salad_' + Salad.#instanceCounter++;
       this.ingredienser = {};
     }
    }
@@ -61,7 +63,6 @@ class Salad {
   remove(name){
       delete this.ingredienser[name];
       return this;
-
   }
 }
 let myCaesarSalad = new Salad()
