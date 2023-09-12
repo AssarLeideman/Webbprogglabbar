@@ -30,4 +30,5 @@ function ComposeSalad(props) {
     </div>
   );
 }
+
 export default ComposeSalad;
