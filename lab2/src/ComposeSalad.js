@@ -9,16 +9,21 @@ function ComposeSalad(props) {
   return (
     <div className="continer col-12">
       <div className="row h-200 p-5 bg-light border rounded-3">
+
+        <div class="dropdown">
         <h2>Välj bas</h2>
         <select name="bas" id="bas-select">
           <option value="">--Please choose an option--</option>
         </select>
         {foundations.map(name => <div key={name} className="col-4">{name}</div>)}
+        </div>
 
+        <div class="dropdown">
         <h2>Välj protein</h2>
         <select name="protein" id="protein-select">
           <option value="">--Please choose an option--</option>
         </select>
+        </div>
 
         <h2>Välj innehållet i din sallad</h2>
         
