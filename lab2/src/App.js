@@ -11,13 +11,6 @@ function App() {
         <span className="fs-4">Min egen salladsbar!</span>
       </header>
       <ComposeSalad inventory={inventory} />
-      <div className="continer col-12">
-        <div className="row h-200 p-5 bg-light border rounded-3">
-          <h2>Välj innehållet i din sallad</h2>
-          {extras.map(name => <div key={name} className="col-4">{name}</div>)}
-        </div>
-      </div>
-
       <footer className="pt-3 mt-4 text-muted border-top">
         EDAF90 - webprogrammering
       </footer>
