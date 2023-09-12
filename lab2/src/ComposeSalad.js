@@ -3,26 +3,26 @@ import { useState } from 'react';
 function ComposeSalad(props) {
   const foundations = Object.keys(props.inventory).filter(name => props.inventory[name].foundation);
   const extras = Object.keys(props.inventory).filter(name => props.inventory[name].extra);
+  const proteins = Object.keys(props.inventory).filter(name => props.inventory[name].protein);
+  const dressings = Object.keys(props.inventory).filter(name => props.inventory[name].dressing);
   const [foundation, setFoundation] = useState('Pasta');
   const [extra, setExtra] = useState({ Bacon: true, Fetaost: true });
 
   return (
     <div className="continer col-12">
       <div className="row h-200 p-5 bg-light border rounded-3">
-
-
         <h2>Välj bas</h2>
+        
         <div class="dropdown">
           <select name="bas" id="bas-select">
-            <option value="">--Please choose an option--</option>
+            {foundations.map(name => <option key = {name}> {name} </option>)};
           </select>
         </div>
-        {foundations.map(name => <div key={name} className="col-4">{name}</div>)}
 
         <h2>Välj protein</h2>
         <div class="dropdown">
           <select name="protein" id="protein-select">
-            <option value="">--Please choose an option--</option>
+            {proteins.map(name => <option key = {name}> {name} </option>)};
           </select>
         </div>
 
@@ -35,7 +35,7 @@ function ComposeSalad(props) {
         <h2>Välj en dressing</h2>
         <div class="dropdown">
           <select name="dressing" id="dressing-select">
-            <option value="">--Please choose an option--</option>
+            {dressings.map(name => <option key = {name}> {name} </option>)};
           </select>
         </div>
         <div><button type="button">Lägg beställning!</button></div>
