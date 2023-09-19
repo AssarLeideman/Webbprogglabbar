@@ -10,21 +10,20 @@ function App() {
   const [shoppingCart, setShoppingCart] = useState([]);
 
   function addNewSallad(sallad) {
-    console.log(sallad);
+    
     let newShoppingCart = [...shoppingCart];
-    console.log("hej addnewsallad");
+   
     newShoppingCart.push(sallad);
     setShoppingCart(newShoppingCart);
-    console.log(newShoppingCart);
-    console.log("nu är kundvagnen:" + shoppingCart);
-    console.log(shoppingCart);
+    
   }
 
   return (
     <div className="container py-4">
       <Header />
       <Navbar />
-      <Outlet context={{ addNewSallad, inventory }} /> 
+      
+      <Outlet context={{shoppingCart, addNewSallad, inventory }} /> 
       <Footer />
     </div>
   );

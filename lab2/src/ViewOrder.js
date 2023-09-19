@@ -1,10 +1,10 @@
-import { useContext } from "react";
+
+import { useOutletContext } from "react-router-dom";
 
 function ViewOrder() {
-    const shoppingCart=useContext().shoppingCart;
+    const shoppingCart=useOutletContext()['shoppingCart'];
     console.log(shoppingCart);
-    console.log("hej från view order");
-    return (<div>
+    return (<div className="row h-200 p-5 bg-light border rounded-3">
       <table>
         <thead>
           <tr>
