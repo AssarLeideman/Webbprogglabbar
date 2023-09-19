@@ -11,6 +11,7 @@ import { v4 as uuidv4 } from 'uuid';
 console.log('\n=== beginning of printout ================================')
 console.log('inventory:', inventory);
 
+
 console.log('\n--- Object.keys() ---------------------------------------')
 const names = Object.keys(inventory);
 names
@@ -79,7 +80,6 @@ console.log(JSON.stringify(myCaesarSalad) + '\n');
 
 
 console.log('\n--- Assignment 3 ---------------------------------------')
-
 Salad.prototype.getPrice = function() {
   return Object.values(this.ingredienser).reduce((totalPrice, ingredient) => totalPrice + ingredient.price,0);
 }
