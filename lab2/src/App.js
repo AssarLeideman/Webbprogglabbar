@@ -1,21 +1,30 @@
-import React, {useState } from 'react';
+import React, {useState,useEffect} from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.css';
-import inventory from './inventory.mjs';
 import {Outlet} from 'react-router-dom'
-import {NavLink} from 'react-router-dom';
-
+import {NavLink,useNavigation} from 'react-router-dom';
+import "bootstrap/dist/js/bootstrap.bundle.min";
+import Salad from './Salad'
 
 function App() {
   const [shoppingCart, setShoppingCart] = useState([]);
 
+  useEffect(() => {
+    
+      Object.keys(localStorage).forEach(uuid => {
+        
+      if(!shoppingCart.find(sallad => sallad.uuid===uuid)) {
+      const sallad = Salad.parse(window.localStorage.getItem(uuid));
+      
+      setShoppingCart([...shoppingCart,sallad]);
+      }
+   });
+  });
+
   function addNewSallad(sallad) {
-    
-    let newShoppingCart = [...shoppingCart];
-   
-    newShoppingCart.push(sallad);
+    let newShoppingCart = [...shoppingCart,sallad];
     setShoppingCart(newShoppingCart);
-    
+    window.localStorage.setItem(sallad.uuid,JSON.stringify(sallad))
   }
 
   return (
@@ -23,7 +32,7 @@ function App() {
       <Header />
       <Navbar />
       
-      <Outlet context={{shoppingCart, addNewSallad, inventory }} /> 
+      <Outlet context={{shoppingCart, addNewSallad,setShoppingCart }} /> 
       <Footer />
     </div>
   );
@@ -35,7 +44,10 @@ function Navbar() {
       <li className="nav-item">
         <NavLink className="nav-link" to="/compose-salad">
           Komponera en sallad
+          <BootstrapSpinner/>
         </NavLink>
+        </li>
+        <li>
         <NavLink className="nav-link" to="/view-order">
           Visa beställning
           </NavLink>
@@ -58,6 +70,16 @@ function Footer() {
   );
 }
 
+function BootstrapSpinner() {
+  const nav = useNavigation();
+  if(nav.state==="loading") {
+    return <div className="d-flex justify-content-center">
+    <div className="spinner-border" role="status">
+      <span className="visually-hidden">Loading...</span>
+    </div>
+  </div>
+  }
+}
 
 
 

@@ -1,13 +1,18 @@
 import { useState } from 'react';
-import { useOutletContext } from 'react-router-dom';
-import { v4 as uuidv4 } from 'uuid';
-
+import { useNavigate, useLoaderData, useOutletContext } from 'react-router-dom';
+import Salad from './Salad'
+import 'bootstrap/dist/css/bootstrap.css';
+import ViewComponent from './ViewComponent';
 
 function ComposeSalad() {
-  const props = useOutletContext();
-  const foundations = Object.keys(props.inventory).filter(name => props.inventory[name].foundation);
-  const proteins = Object.keys(props.inventory).filter(name => props.inventory[name].protein);
-  const dressings = Object.keys(props.inventory).filter(name => props.inventory[name].dressing);
+
+  const props = useLoaderData();
+  const context=useOutletContext();
+  
+  const foundations = props.foundations;
+  const proteins = props.proteins;
+  const dressings = props.dressings;
+  const extras = props.extras;
 
   const [foundation, setFoundation] = useState('');
   const [protein, setProtein] = useState('');
@@ -17,6 +22,7 @@ function ComposeSalad() {
 
   const [alert, setAlert] = useState(false);
 
+  const navigate = useNavigate();
 
   function changeFoundation(newFoundation) {
     setFoundation(newFoundation);
@@ -31,13 +37,7 @@ function ComposeSalad() {
   }
 
   function changeExtras(newExtra) {
-
-    let newObject = { ...extra };
-    if (newObject[newExtra]) {
-      newObject[newExtra] = false;
-    } else {
-      newObject[newExtra] = true;
-    }
+    const newObject = { ...extra, [newExtra]: !extra[newExtra] };
     setExtra(newObject);
 
   }
@@ -50,24 +50,24 @@ function ComposeSalad() {
         <form className="needs-validation" id={"theform"} noValidate onSubmit={(e) => {
           e.preventDefault();
 
-          e.target.classList.add("was-validated");
-
           if (selectedOptions.length < 3 || selectedOptions.length > 9) {
-            
+
             setAlert(true);
             return;
           } else {
             setAlert(false);
           }
           if (!e.target.checkValidity()) {
-            
-           
+
+            e.target.classList.add("was-validated");
             e.stopPropagation();
             return;
           }
+        
+          const newSallad = createNewSallad(foundation, protein, dressing, extra,props);
+          
+          context.addNewSallad(newSallad);
 
-          let newSallad = createNewSallad(foundation, protein, dressing, extra, props);
-          props.addNewSallad(newSallad);
           setFoundation('');
           setProtein('');
           setDressing('');
@@ -76,12 +76,12 @@ function ComposeSalad() {
 
           e.target.classList.remove("was-validated");
 
+          navigate("/view-order/confirm/" + newSallad.uuid);
         }
         }>
 
           <MyComponentSelector
-            options={foundations}
-            props={props}
+            props={foundations}
             value={foundation}
             onChange={e => {
 
@@ -89,32 +89,31 @@ function ComposeSalad() {
             }}
           />
 
-          <h2>Välj protein</h2>
+          <h2 className="p-1">Välj protein</h2>
 
           <MyComponentSelector
-            props={props}
-            options={proteins}
+            props={proteins}
             value={protein}
             onChange={e => changeProtein(e.target.value)}
           />
 
 
-          <h2>Välj innehållet i din sallad</h2>
+          <h2 className="p-1">Välj innehållet i din sallad</h2>
 
-          <MyAlerter alert={alert}/>
-         
+          <MyAlerter alert={alert} />
+
           <MyExtrasSelect
-            props={props}
+            props={extras}
             onChange={name => changeExtras(name)}
             selectedOptions={selectedOptions}
             setSelectedOptions={setSelectedOptions}
           />
+          <ViewComponent />
 
-          <h2>Välj en dressing</h2>
+          <h2 className="p-1">Välj en dressing</h2>
 
           <MyComponentSelector
-            options={dressings}
-            props={props}
+            props={dressings}
             value={dressing}
             onChange={e => changeDressing(e.target.value)}
           />
@@ -130,8 +129,10 @@ function ComposeSalad() {
                 borderRadius: '5px'
               }}
             >
-              Lägg beställning!
+             Lägg till i varukorgen
             </button>
+
+
 
           </div>
         </form>
@@ -140,46 +141,38 @@ function ComposeSalad() {
   );
 }
 
-function MyAlerter({alert}) {
-  if(alert) {
-  return (
-    <div id={"alerter"} className="alert alert-warning" role="alert">
-      Var god välj minst 3 och max 9 tillbehör
-    </div>
-  );
+function MyAlerter({ alert }) {
+  if (alert) {
+    return (
+      <div id={"alerter"} className="alert alert-warning" role="alert">
+        Var god välj minst 3 och max 9 tillbehör
+      </div>
+    );
   }
 }
 
 
-function MyComponentSelector({ options, props, value, onChange }) {
-  return (<div className="dropdown">
-    <select name="bas" value={value} onChange={onChange} className="dropdown" required>
-      <option className="btn-lg" key={"None-selected"} value={""} defaultValue> Gör ditt val </option>
-      {options.map(name => <option className="btn-lg" key={name} value={name} > {name} {"(" + props.inventory[name].price + " kr)"} </option>)}
-    </select>
-    <div className="valid-feedback"></div>
-    <div className="invalid-feedback">Var god gör ett val</div>
-  </div>);
+function MyComponentSelector({ props, value, onChange }) {
+  return (
+    <div className="col-3">
+      <div className="dropdown">
+        <select value={value} onChange={onChange} className="form-select" required>
+          <option value={""} key={"None-selected"} defaultValue> Gör ditt val </option>
+          {
+          Object.keys(props).map(name => <option className="btn" key={name} value={name} > {name} {"(" + props[name].price + " kr)"} </option> )};
+            
+        </select>
+        <div className="valid-feedback"></div>
+        <div className="invalid-feedback">Var god gör ett val</div>
+      </div>
+    </div>);
 
 }
 
-function createNewSallad(foundation, protein, dressing, extras, props) {
-  let nySallad = new Salad();
-  nySallad.add(foundation, props.inventory[foundation]);
-  nySallad.add(protein, props.inventory[protein]);
-  nySallad.add(dressing, props.inventory[dressing]);
 
-
-  Object.keys({ ...extras }).forEach(e => {
-    if (extras[e] === true) {
-      nySallad.add(e, props.inventory[e]);
-    }
-  });
-  return (nySallad);
-}
 function MyExtrasSelect({ props, onChange, selectedOptions, setSelectedOptions }) {
-
-  const extras = Object.keys(props.inventory).filter(name => props.inventory[name].extra);
+  const navigate = useNavigate();
+  const extras = Object.keys(props).filter(name => props[name].extra);
 
   function handleChange(name) {
     let newSelectedOptions = [...selectedOptions];
@@ -193,10 +186,11 @@ function MyExtrasSelect({ props, onChange, selectedOptions, setSelectedOptions }
   }
 
   return (
-    <div>
+    <div className="">
       {extras.map(name => (
         <label key={name} className="col-4">
-          <input
+
+          <div className="col-10"> <input
             type="checkbox"
             id={name}
             className="form-check-input"
@@ -207,49 +201,29 @@ function MyExtrasSelect({ props, onChange, selectedOptions, setSelectedOptions }
               handleChange(name);
             }}>
           </input>
-          {name} {"(" + props.inventory[name].price + " kr)"}
+            <div className="d-inline" onClick={() => navigate("view-ingredient/" + name)}> {name} {"(" + props[name].price + " kr)"}</div>  </div>
 
         </label>))}
     </div>);
 }
 
-class Salad {
-  static #instanceCounter = 0;
 
-  constructor(otherSalad) {
-    const uuid = uuidv4();  // use this in the constructor
 
-    //Ändra ordning
-    if (otherSalad instanceof Salad) {
-      this.ingredienser = { ...otherSalad.ingredienser };
-      this.id = 'salad_' + Salad.#instanceCounter++;
-      this.uuid = uuid;
-      return this;
-    } else {
-      this.uuid = uuid;
-      this.id = 'salad_' + Salad.#instanceCounter++;
-      this.ingredienser = {};
+function createNewSallad(foundation, protein, dressing, extras,props) {
+  let nySallad = new Salad();
+ // console.log("vald foundation " + foundation);
+  
+  nySallad.add(props.foundations[foundation],foundation)
+          .add(props.proteins[protein],protein)
+          .add(props.dressings[dressing],dressing);
+
+  //console.log("i createnewsallad: " + nySallad);
+  Object.keys({ ...extras }).forEach(e => {
+    if (extras[e] === true) {
+      nySallad.add(props.extras[e],e);
     }
-  }
-  add(name, properties) {
-    this.ingredienser[name] = properties;
-    return this;
-  }
-  remove(name) {
-    delete this.ingredienser[name];
-    return this;
-  }
+  });
+  return (nySallad);
 }
-Salad.prototype.getPrice = function () {
-  return Object.values(this.ingredienser).reduce((totalPrice, ingredient) => totalPrice + ingredient.price, 0);
-}
-Salad.prototype.count = function (property) {
-  return Object.values(this.ingredienser).filter(x => x[property]).length;
-}
-
-Salad.prototype.printSallad = function () {
-  return Object.keys(this.ingredienser).map(ing => ing + ', ').reduce((a, b) => a + b, '').toLocaleLowerCase().slice(0, -2);
-}
-
 
 export default ComposeSalad;
